@@ -1,0 +1,34 @@
+version: 1
+disable_existing_loggers: yes
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    stream: ext://sys.stdout
+loggers:
+  root:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
+
+  tornado:
+    level: DEBUG
+    handlers:
+      - console
+    propagate: no
+
+  handlers:
+    level: DEBUG
+    handlers:
+      - console
+    propagate: no
+
+  __main__:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
+root:
+  level: DEBUG
+  handlers:
+    - console
+  propagate: no
