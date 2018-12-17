@@ -19,7 +19,7 @@ from handlers.statusHandler import StatusHandler
 from handlers.whoisHandler import WhoisHandler
 from services.factories import account_service_factory, queue_service_factory
 
-__version__ = '0.0.0'
+__version__ = '1.0.0'
 
 
 def make_app():
