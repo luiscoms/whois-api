@@ -31,7 +31,7 @@ def make_app():
            type=str)
 
     define("app_config_path",
-           default=getenv('GATEWAY_CONFIG_PATH', 'config/local.yml'),
+           default=getenv('APP_CONFIG_PATH', 'config/local.yml'),
            help="Path of gateway config file",
            type=str)
 

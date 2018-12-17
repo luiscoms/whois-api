@@ -3,6 +3,7 @@ mysql:
   port: 3306
   database: secure-database
   user: root
+  password: $MYSQL_PASSWORD
 
 rabbitmq:
   host: rabbitmq
