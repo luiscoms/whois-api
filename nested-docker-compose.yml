@@ -1,0 +1,19 @@
+version: "3.4"
+services:
+  whois-api:
+    image: whois-api
+    build:
+      context: whois-api/
+    command: bash -c 'echo wait database 20 seconds && sleep 20 && python -dutt app.py'
+
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+      - rabbitmq
+    environment:
+      TORNADO_CONFIG_PATH: config/tornado-staging.conf
+      LOGGING_CONFIG_PATH: config/logging-staging.yml
+      APP_CONFIG_PATH: config/staging.yml
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}

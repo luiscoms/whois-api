@@ -1,0 +1,16 @@
+version: "3.4"
+services:
+  whois-api:
+    image: whois-api
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+      - rabbitmq
+    environment:
+      TORNADO_CONFIG_PATH: config/tornado-production.conf
+      LOGGING_CONFIG_PATH: config/logging-production.yml
+      APP_CONFIG_PATH: config/production.yml
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
