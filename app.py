@@ -5,12 +5,15 @@ import tornado.ioloop
 import tornado.options
 import tornado.web
 from os import getenv
+
+from dotenv import load_dotenv, find_dotenv
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 from tornado.options import define, options
 
 from config.factories import config
 from config.loader import Loader
+from dao.factories import mysql_factory
 from handlers.healthcheckHandler import HealthcheckHandler
 from handlers.statusHandler import StatusHandler
 from handlers.whoisHandler import WhoisHandler
@@ -35,6 +38,8 @@ def make_app():
     tornado_conf_path = getenv('TORNADO_CONFIG_PATH', 'config/tornado-local.conf')
     tornado.options.parse_config_file(tornado_conf_path)
 
+    load_dotenv(find_dotenv())
+
     configLoader = Loader()
     logging_config = configLoader.load_from_file(options.logging_config_path)
     logging.config.dictConfig(logging_config)
@@ -47,7 +52,10 @@ def make_app():
 
     return tornado.web.Application(handlers=[
         (r'/(?:status)?', StatusHandler, dict(version=__version__)),
-        (r'/health(check)?', HealthcheckHandler, dict(version=__version__)),
+        (r'/health(check)?', HealthcheckHandler, dict(
+            version=__version__,
+            mysql=mysql_factory(),
+        )),
         (r'/whois/(?P<cpf>[0-9]{11})', WhoisHandler, dict(
             account_service=account_service_factory(),
             queue_service=queue_service_factory()

@@ -4,11 +4,14 @@ from os.path import exists
 
 
 class HealthcheckHandler(TornadoHandler):
-    def initialize(self, version, *args, **kwargs):
+    def initialize(self, version, mysql, *args, **kwargs):
+        self.mysql = mysql
+
         self.checker = HealthCheck(
             version=lambda: version,
             branch=self.get_git_branch,
             checkers=[
+                self.mysql_connected
             ]
         )
 
@@ -41,3 +44,6 @@ class HealthcheckHandler(TornadoHandler):
             branch = 'Not found'
 
         return branch
+
+    def mysql_connected(self):
+        return self.mysql.connection.open, "MySQL ok"
