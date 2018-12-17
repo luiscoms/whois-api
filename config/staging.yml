@@ -3,3 +3,13 @@ mysql:
   port: 3306
   database: secure-database
   user: root
+
+rabbitmq:
+  host: rabbitmq
+  port: 5672
+  username: whois-api
+  password: $RABBITMQ_PASSWORD
+
+  exchange:
+    name: accounts.search.cpf
+    type: topic

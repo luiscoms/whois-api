@@ -7,4 +7,4 @@ from dao.factories import mysql_factory
 
 account_service_factory = providers.Factory(AccountService, mysql_factory)
 
-queue_service_factory = providers.Factory(QueueService, config)
+queue_service_factory = providers.Factory(QueueService, config.rabbitmq)

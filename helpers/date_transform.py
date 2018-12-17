@@ -1,6 +1,6 @@
 import datetime
 
-DEFAULT_FORMAT = "%a, %d %b %Y %H:%M:%S GMT"
+DEFAULT_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 
 def datetimeSerializer(o, format=DEFAULT_FORMAT):

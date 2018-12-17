@@ -12,6 +12,10 @@ class MySQL:
             columns = [desc[0] for desc in cursor.description]
             return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
+    def fetchone(self, sql):
+        results = self.fetchall(sql)
+        return results[0] if len(results) > 0 else None
+
     def get_account_by_cpf(self, cpf):
         query = f"""SELECT * FROM accounts where cpf = '{cpf}'"""
-        return self.fetchall(query)
+        return self.fetchone(query)
